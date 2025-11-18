@@ -14,12 +14,12 @@ use  Argomedia\ToDoAppComposer\OperationCrud;
      ->from('tasks')
      ->execute();
 
-      $query1 = (new OperationCrud())
+    //   $query1 = (new OperationCrud())
      
-     ->from('tasks')
-     ->select(['id', 'text',])
-     ->insert("('6','New Task')")
-     ->executeInsert();
+    //  ->from('tasks')
+    //  ->select(['id', 'text'])
+    //  ->insert("'2','New Task'")
+    //  ->executeInsert();
 
 
 
