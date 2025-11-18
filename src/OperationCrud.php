@@ -9,6 +9,8 @@ class OperationCrud
     protected $condition = "";
     protected $values = ['*'];
 
+    protected $newValue = ['*'];
+
 
 
 
@@ -51,6 +53,14 @@ class OperationCrud
         return $this;
     }
 
+    public function edit($newValue = ['*'])
+    {
+        if (is_string($newValue)) {
+            $newValue = [$newValue];
+        }
+        $this->newValue = $newValue;
+        return $this;
+    }
 
     public function getSQLInsert()
     {
@@ -64,6 +74,14 @@ class OperationCrud
     {
 
         $sql = "DELETE FROM " . $this->table . " WHERE " . $this->condition;
+
+        return $sql;
+    }
+
+    public function getSQLEdit()
+    {
+
+        $sql = "UPDATE " . $this->table . " SET " . implode(', ', $this->columns) . " = " . implode(', ', $this->newValue) . " WHERE " . $this->condition;
 
         return $sql;
     }
@@ -95,6 +113,14 @@ class OperationCrud
     public function executeInsert()
     {
         $sql = $this->getSQLInsert();
+        $result = Connector::query($sql);
+
+        return $result;
+    }
+
+    public function executeEdit()
+    {
+        $sql = $this->getSQLEdit();
         $result = Connector::query($sql);
 
         return $result;

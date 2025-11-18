@@ -33,6 +33,24 @@ if (isset($_GET['delete'])) {
     exit;
 }
 
+// Gestione  per modificare un  task
+if (isset($_GET['edit']) && isset($_GET['save'])) {
+    $taskIdToEdit = $_GET['edit'];
+    $newTaskText = $_GET['save'];
+
+    (new OperationCrud())
+        ->from('tasks')
+        ->select(['text'])
+        ->edit(["'" . addslashes($newTaskText) . "'"])
+        ->where('id', $taskIdToEdit)
+        ->executeEdit();
+
+    header('Location: index.php');
+    exit;
+}
+
+
+
 $query = (new OperationCrud())
     ->select(['id', 'text',])
     ->from('tasks')
@@ -61,15 +79,22 @@ echo "<br>";
     <ul>
         <?php foreach ($query as $row) { ?>
             <li>
-                <?php echo "ID: {$row['id']} - Text: {$row['text']}<br>"; ?>
-                <form method="get">
-                    <button name="delete" value="<?php echo $row['id']; ?>">x</button>
-                </form>
-                <form method="get">
-                    <button name="edit" value="<?php echo $row['id']; ?>">edit</button>
-                </form>
-            <?php } ?>
-        </li>
+                <?php if (isset($_GET['edit']) && $_GET['edit'] == $row['id']) { ?>
+                    <form method="get">
+                        <input type="text" name="save" value="<?php echo $row['text']; ?>" required>
+                        <button name="edit" value="<?php echo $row['id']; ?>">Save</button>
+                    </form>
+                <?php } else { ?>
+                    <?php echo "ID: {$row['id']} - Text: {$row['text']}<br>"; ?>
+                    <form method="get">
+                        <button name="delete" value="<?php echo $row['id']; ?>">x</button>
+                    </form>
+                    <form method="get">
+                        <button name="edit" value="<?php echo $row['id']; ?>">edit</button>
+                    </form>
+                <?php } ?>
+            </li>
+        <?php } ?>
     </ul>
 </body>
 
