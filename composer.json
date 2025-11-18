@@ -1,0 +1,15 @@
+{
+    "name": "matteo/to-do-app-composer",
+    "autoload": {
+        "psr-4": {
+            "Argomedia\\ToDoAppComposer\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "MatteoVentura7",
+            "email": "matteo.ventura18@gmail.com"
+        }
+    ],
+    "require": {}
+}
