@@ -11,7 +11,7 @@ class MySQL implements DbI
     {
         $servername = "localhost";
         $username = "root";
-        $password = "";
+        $password = "13579Matteo";
         $dbname = "to-do-app-composer";
 
         try {

@@ -20,6 +20,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['task'])) {
     exit;
 }
 
+// Gestione  per cancellare un  task
+if (isset($_GET['delete'])) {
+    $taskIdToDelete = $_GET['delete'];
+
+    (new OperationCrud())
+        ->from('tasks')
+        ->where('id', $taskIdToDelete)
+        ->executeDelete();
+
+    header('Location: index.php');
+    exit;
+}
+
 $query = (new OperationCrud())
     ->select(['id', 'text',])
     ->from('tasks')

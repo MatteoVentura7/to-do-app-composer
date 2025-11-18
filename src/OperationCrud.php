@@ -8,8 +8,8 @@ class OperationCrud
     protected $columns = ['*'];
     protected $condition = "";
     protected $values = ['*'];
-    
-   
+
+
 
 
 
@@ -42,9 +42,9 @@ class OperationCrud
     }
 
 
-        public function insert($values = ['*'])
+    public function insert($values = ['*'])
     {
-             if (is_string($values)) {
+        if (is_string($values)) {
             $values = [$values];
         }
         $this->values = $values;
@@ -52,10 +52,18 @@ class OperationCrud
     }
 
 
-       public function getSQLInsert()
+    public function getSQLInsert()
     {
-        // Correctly format the INSERT INTO query
+
         $sql = "INSERT INTO " . $this->table . " (" . implode(', ', $this->columns) . ") VALUES (" . implode(', ', $this->values) . ")";
+
+        return $sql;
+    }
+
+    public function getSQLDelete()
+    {
+
+        $sql = "DELETE FROM " . $this->table . " WHERE " . $this->condition;
 
         return $sql;
     }
@@ -72,7 +80,7 @@ class OperationCrud
             $sql .= " WHERE " . $this->condition;
         }
 
-      
+
         return $sql;
     }
 
@@ -87,6 +95,14 @@ class OperationCrud
     public function executeInsert()
     {
         $sql = $this->getSQLInsert();
+        $result = Connector::query($sql);
+
+        return $result;
+    }
+
+    public function executeDelete()
+    {
+        $sql = $this->getSQLDelete();
         $result = Connector::query($sql);
 
         return $result;
