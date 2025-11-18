@@ -7,14 +7,14 @@ namespace Composer\Autoload;
 class ComposerStaticInit9a8fae8e6b0ad041c20e1a606bfb65fd
 {
     public static $prefixLengthsPsr4 = array (
-        'A' => 
+        'A' =>
         array (
             'Argomedia\\ToDoAppComposer\\' => 26,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Argomedia\\ToDoAppComposer\\' => 
+        'Argomedia\\ToDoAppComposer\\' =>
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),

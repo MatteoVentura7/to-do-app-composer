@@ -14,7 +14,6 @@ class MySQL implements DbI
         $password = "";
         $dbname = "to-do-app-composer";
 
-
         try {
             // Creazione della connessione
             $conn = new \PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -22,7 +21,7 @@ class MySQL implements DbI
             // Imposta la modalità di errore su eccezione
             $conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 
-            
+
             $this->connection = $conn;
         } catch (\PDOException $e) {
             echo "Errore di connessione: " . $e->getMessage();
@@ -32,10 +31,10 @@ class MySQL implements DbI
 
     public function query($query)
     {
-         if(!isset($this->connection)  ) {
+        if (!isset($this->connection)) {
 
             $this->connect();
-        } 
+        }
         return $this->connection->query($query);
     }
 }
