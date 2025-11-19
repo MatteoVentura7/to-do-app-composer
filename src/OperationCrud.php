@@ -11,10 +11,6 @@ class OperationCrud
 
     protected $newValue = ['*'];
 
-
-
-
-
     public function from($table)
     {
         $this->table = $table;
