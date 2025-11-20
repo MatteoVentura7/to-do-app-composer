@@ -105,6 +105,10 @@ echo "<br>";
             text-decoration: line-through;
             color: gray;
         }
+
+        .complete {
+            color: green;
+        }
     </style>
 </head>
 
@@ -118,7 +122,7 @@ echo "<br>";
                 Task</button>
         </div>
     </form>
-    <ul class="w-full max-w-md bg-white shadow-md rounded-md divide-y divide-gray-200">
+    <ul class="w-full max-w-fit  bg-white shadow-md rounded-md divide-y divide-gray-200">
         <?php foreach ($query as $row) { ?>
             <li class="p-4 flex items-center justify-between">
                 <?php if (isset($_GET['edit']) && $_GET['edit'] == $row['id']) { ?>
@@ -129,24 +133,32 @@ echo "<br>";
                             class="bg-green-500 text-white px-4 py-2 rounded-r-md hover:bg-green-600">Save</button>
                     </form>
                 <?php } else { ?>
-                    <div class="flex items-center align-middle space-x-4">
-                        <form method="get" class="pt-4">
+                    <div class="flex items-center align-middle space-x-4 pr-6">
+                        <form method="get" class="pt-2 pr-6">
 
-                            <button class="h-5 w-5 text-blue-600" name="complete" value="<?php echo $row['id']; ?>"> <i
-                                    class="fa-regular fa-square-check"></i></button>
+                            <button class="h-5 w-5 text-3xl  text-blue-600 <?php echo $row['completed'] ? 'complete' : ''; ?>"
+                                name="complete" value="<?php echo $row['id']; ?>">
+                                <?php if ($row['completed']) { ?>
+                                    <i class="fa-solid fa-square-check"></i>
+                                <?php } else { ?>
+                                    <i class="fa-regular fa-square"></i>
+                                <?php } ?>
+                            </button>
                         </form>
-                        <span class="<?php echo $row['completed'] ? 'completed' : ''; ?>">
-                            <?php echo $row['text']; ?>
+                        <span class="<?php echo $row['completed'] ? 'completed' : ''; ?> text-lg ">
+                            <p class="text-wrap"> <?php echo $row['text']; ?></p>
                         </span>
                     </div>
                     <div class="flex space-x-2 items-center pt-4">
                         <form method="get">
                             <button name="delete" value="<?php echo $row['id']; ?>"
-                                class="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600">x</button>
+                                class="bg-red-500 text-white px-2 py-2 rounded-md hover:bg-red-600"><i
+                                    class="fa-solid fa-trash"></i></button>
                         </form>
                         <form method="get">
                             <button name="edit" value="<?php echo $row['id']; ?>"
-                                class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600">Edit</button>
+                                class="bg-yellow-500 text-white px-2 py-2 rounded-md hover:bg-yellow-600"><i
+                                    class="fa-solid fa-pencil"></i></button>
                         </form>
                     </div>
                 <?php } ?>
